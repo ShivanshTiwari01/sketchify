@@ -70,7 +70,7 @@ sketchify/
 1. **Clone the repository**
 
    ```sh
-   git clone https://github.com/your-username/sketchify.git
+   git clone https://github.com/ShivanshTiwari01/sketchify.git
    cd sketchify
    ```
 
