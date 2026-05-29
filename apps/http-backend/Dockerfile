@@ -34,4 +34,5 @@ COPY --from=builder /app/pnpm-workspace.yaml ./pnpm-workspace.yaml
 
 WORKDIR /app/apps/http-backend
 EXPOSE 4001
-CMD ["sh", "-c", "npx prisma migrate deploy --schema=../../packages/db/prisma/schema.prisma && node dist/index.js"]
+
+CMD ["sh", "-c", "node_modules/.bin/prisma migrate deploy --schema=../../packages/db/prisma/schema.prisma && node dist/index.js"]
