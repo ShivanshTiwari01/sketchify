@@ -26,5 +26,7 @@ WORKDIR /app
 COPY --from=builder /app/apps/http-backend/dist ./dist
 COPY --from=builder /app/apps/http-backend/package.json ./package.json
 COPY --from=builder /app/apps/http-backend/node_modules ./node_modules
+COPY --from=builder /app/packages/db/prisma ./packages/db/prisma
+COPY --from=builder /app/node_modules/.pnpm ./node_modules/.pnpm
 EXPOSE 4001
-CMD ["node", "dist/index.js"]
+CMD ["sh", "-c", "npx prisma migrate deploy --schema=./packages/db/prisma/schema.prisma && node dist/index.js"]
