@@ -13,6 +13,8 @@ RUN pnpm install --frozen-lockfile
 
 FROM base AS builder
 COPY --from=installer /app/node_modules ./node_modules
+COPY --from=installer /app/apps/ws-backend/node_modules ./apps/ws-backend/node_modules
+COPY --from=installer /app/packages ./packages
 COPY --from=pruner /app/out/full/ .
 RUN pnpm turbo build --filter=ws-backend
 
