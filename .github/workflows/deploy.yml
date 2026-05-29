@@ -7,18 +7,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Deploy via ssh
+      - name: Deploy via SSH
         uses: appleboy/ssh-action@v1.0.3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           host: ${{ secrets.VPS_IP }}
-          username: ${{ secrets.VPS_USER}}
-          key: ${{ secrets.VPS_PRIVATE_KEY}}
-
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_PRIVATE_KEY }}
+          envs: GITHUB_TOKEN
           script: |
-            cd ~/projects/sketchify
+            set -e
+            APP_DIR=~/projects/sketchify
+            mkdir -p "$APP_DIR"
+            cd "$APP_DIR"
 
             echo "Pull latest code"
             if [ ! -d .git ]; then
@@ -31,3 +33,6 @@ jobs:
             echo "Rebuild containers"
             docker compose down
             docker compose up --build -d
+
+            echo "Prune unused images"
+            docker image prune -f

@@ -8,7 +8,7 @@
     "./prisma": "./dist/src/index.js"
   },
   "scripts": {
-    "build": "tsc -b",
+    "build": "prisma generate && tsc -b",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
