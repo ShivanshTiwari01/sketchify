@@ -36,4 +36,4 @@ COPY --from=builder /app/packages/db/prisma.config.ts ./packages/db/prisma.confi
 WORKDIR /app/apps/http-backend
 EXPOSE 4001
 
-CMD ["sh", "-c", "node_modules/.bin/prisma migrate deploy --schema=../../packages/db/prisma/schema.prisma && node dist/index.js"]
+CMD ["sh", "-c", "cd ../../packages/db && npx prisma migrate deploy && cd /app/apps/http-backend && node dist/index.js"]
