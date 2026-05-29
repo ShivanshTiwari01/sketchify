@@ -31,6 +31,7 @@ COPY --from=builder /app/apps/http-backend/package.json ./apps/http-backend/pack
 COPY --from=builder /app/apps/http-backend/node_modules ./apps/http-backend/node_modules
 COPY --from=builder /app/package.json ./package.json
 COPY --from=builder /app/pnpm-workspace.yaml ./pnpm-workspace.yaml
+COPY --from=builder /app/packages/db/prisma.config.ts ./packages/db/prisma.config.ts
 
 WORKDIR /app/apps/http-backend
 EXPOSE 4001
