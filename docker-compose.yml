@@ -1,0 +1,33 @@
+services:
+  http-backend:
+    build:
+      context: .
+      dockerfile: apps/http-backend/Dockerfile
+    restart: unless-stopped
+    networks: [internal]
+    env_file: ./apps/http-backend/.env
+
+  ws-backend:
+    build:
+      context: .
+      dockerfile: apps/ws-backend/Dockerfile
+    restart: unless-stopped
+    networks: [internal]
+    env_file: ./apps/ws-backend/.env
+
+  frontend:
+    build:
+      context: .
+      dockerfile: apps/frontend/Dockerfile
+    restart: unless-stopped
+    networks: [internal]
+    env_file: ./apps/frontend/.env
+
+  nginx:
+    image: nginx:alpine
+    restart: unless-stopped
+    networks: [web, internal]
+    ports:
+      - '80:80'
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
