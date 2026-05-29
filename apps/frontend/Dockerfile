@@ -13,7 +13,6 @@ RUN pnpm install --frozen-lockfile
 
 FROM base AS builder
 COPY --from=installer /app/node_modules ./node_modules
-COPY --from=installer /app/apps/frontend/node_modules ./apps/frontend/node_modules
 COPY --from=pruner /app/out/full/ .
 RUN pnpm turbo build --filter=frontend
 
